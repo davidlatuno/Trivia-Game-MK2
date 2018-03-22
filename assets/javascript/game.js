@@ -117,8 +117,8 @@ function segueTimeOut() {
 function statScreen() {
     // Erase screen and display stats
     $(".trivia").empty();
-    $(".trivia").append("<div class='stats'>Correct Answered: " + correctAnswers + "</div.");
-    $(".trivia").append("<div class='stats'>Incorrect Answered: " + incorrectAnswers + "</div.");
+    $(".trivia").append("<div class='stats'>Correct Answers: " + correctAnswers + "</div.");
+    $(".trivia").append("<div class='stats'>Incorrect Answers: " + incorrectAnswers + "</div.");
 
     // Populate reset button
     $(".trivia").append("<button type='button' class='btn btn-danger'>Reset</button>");
