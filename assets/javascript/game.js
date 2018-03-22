@@ -96,6 +96,24 @@ function segueSad() {
     }
 }
 
+// Correct answer shown screen
+function segueTimeOut() {
+
+    var segueIndex = questionArray[questionIndex][5];
+
+    $(".trivia").empty();
+    $(".trivia").html("Time's Up! The correct answer was: <strong>" + questionArray[questionIndex][segueIndex] + "</strong>");
+
+    questionIndex++;
+
+    // Get next question or if no more questions show stats
+    if (questionIndex <= questionArray.length - 1) {
+        setTimeout(next, 3000);
+    } else {
+        setTimeout(statScreen, 3000);
+    }
+}
+
 function statScreen() {
     // Erase screen and display stats
     $(".trivia").empty();
@@ -154,7 +172,7 @@ function countDown() {
     if (seconds === 0) {
         incorrectAnswers++;
         stop();
-        segueSad();
+        segueTimeOut();
     }
 }
 
