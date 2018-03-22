@@ -26,31 +26,61 @@ var question = {
 // Question array
 var questionArray = [question.q1, question.q2, question.q3, question.q4, question.q5, question.q6, question.q7, question.q8, question.q9, question.q10];
 
+// Global Variables
 var questionIndex = 0;
+var correctAnswers = 0;
+var incorrectAnswers = 0;
 
-// Print Questions to html
-var newDiv = $("<div>");
-newDiv.text(questionArray[questionIndex][0]);
-newDiv.attr("class", "question");
-$(".container").append(newDiv);
 
-// Print choices to html
-for (var i = 1; i < 5; i++) {
+// Jquery to populate questions
+function next() {
+    $(".container").empty();
+
+    // Print Questions to html
     var newDiv = $("<div>");
-    newDiv.text(questionArray[questionIndex][i]);
-    newDiv.attr("class", "answer");
-    newDiv.attr("value", i);
+    newDiv.text(questionArray[questionIndex][0]);
+    newDiv.attr("class", "question");
     $(".container").append(newDiv);
+
+    // Print choices to html
+    for (var i = 1; i < 5; i++) {
+        var newDiv = $("<div>");
+        newDiv.text(questionArray[questionIndex][i]);
+        newDiv.attr("class", "answer");
+        newDiv.attr("value", i);
+        $(".container").append(newDiv);
+    }
 }
 
-$(document).ready(function() {
+// Correct answer shown screen
+function segue() {
 
-    $(".answer").click(function() {
+    var segueIndex = questionArray[questionIndex][5];
+
+
+    $(".container").empty();
+    $(".container").text("The Correct answer was: " + questionArray[questionIndex][segueIndex]);
+
+    questionIndex++;
+
+    setTimeout(next, 3000);
+
+}
+
+next();
+
+$(document).ready(function () {
+
+    $(".container").on("click", ".answer", function () {
         var val = parseInt($(this).attr("value"));
         if (val === questionArray[questionIndex][5]) {
-            console.log("YAY");
+            correctAnswers++
+        } else {
+            incorrectAnswers++
         }
-        })
+        console.log('hi');
+        segue();
+    })
 
 })
 
