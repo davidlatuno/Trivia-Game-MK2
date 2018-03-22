@@ -34,22 +34,33 @@ var incorrectAnswers = 0;
 
 // Jquery to populate questions
 function next() {
-    $(".container").empty();
+    if (questionIndex <= questionArray.length - 1) {
+        seconds = 20;
+        start();
 
-    // Print Questions to html
-    var newDiv = $("<div>");
-    newDiv.text(questionArray[questionIndex][0]);
-    newDiv.attr("class", "question");
-    $(".container").append(newDiv);
+        $(".container").empty();
 
-    // Print choices to html
-    for (var i = 1; i < 5; i++) {
+        // Print Questions to html
         var newDiv = $("<div>");
-        newDiv.text(questionArray[questionIndex][i]);
-        newDiv.attr("class", "answer");
-        newDiv.attr("value", i);
+        newDiv.text(questionArray[questionIndex][0]);
+        newDiv.attr("class", "question");
         $(".container").append(newDiv);
+
+        // Print choices to html
+        for (var i = 1; i < 5; i++) {
+            var newDiv = $("<div>");
+            newDiv.text(questionArray[questionIndex][i]);
+            newDiv.attr("class", "answer");
+            newDiv.attr("value", i);
+            $(".container").append(newDiv);
+        }
+        // Reset Timer text
+        $("#timer").text("Time Remaining: 20 Seconds");
+        $("#timer").css("color", "forestgreen");
+        console.log(questionIndex);
+
     }
+
 }
 
 // Correct answer shown screen
@@ -57,14 +68,22 @@ function segue() {
 
     var segueIndex = questionArray[questionIndex][5];
 
-
     $(".container").empty();
     $(".container").text("The Correct answer was: " + questionArray[questionIndex][segueIndex]);
 
     questionIndex++;
 
-    setTimeout(next, 3000);
+    if (questionIndex <= questionArray.length - 1) {
+        setTimeout(next, 3000);
+    } else {
+        setTimeout(statScreen, 3000);
+    }
+}
 
+function statScreen() {
+    $(".container").empty();
+    $(".container").append("<div class='stats'>Correct Answered: " + correctAnswers + "</div.");
+    $(".container").append("<div class='stats'>Incorrect Answered: " + incorrectAnswers + "</div.");
 }
 
 next();
@@ -74,11 +93,11 @@ $(document).ready(function () {
     $(".container").on("click", ".answer", function () {
         var val = parseInt($(this).attr("value"));
         if (val === questionArray[questionIndex][5]) {
-            correctAnswers++
+            correctAnswers++;
         } else {
-            incorrectAnswers++
+            incorrectAnswers++;
         }
-        console.log('hi');
+        clearInterval(timer);
         segue();
     })
 
@@ -86,7 +105,7 @@ $(document).ready(function () {
 
 
 // Timer Code
-var seconds = 30;
+var seconds = 20;
 var timer;
 
 function start() {
@@ -102,12 +121,12 @@ function countDown() {
         $("#timer").css("color", "crimson");
     }
     if (seconds === 0) {
+        incorrectAnswers++;
         stop();
+        segue();
     }
 }
 
 function stop() {
     clearInterval(timer);
 }
-
-start();
