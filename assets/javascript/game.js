@@ -26,6 +26,34 @@ var question = {
 // Question array
 var questionArray = [question.q1, question.q2, question.q3, question.q4, question.q5, question.q6, question.q7, question.q8, question.q9, question.q10];
 
+var questionIndex = 0;
+
+// Print Questions to html
+var newDiv = $("<div>");
+newDiv.text(questionArray[questionIndex][0]);
+newDiv.attr("class", "question");
+$(".container").append(newDiv);
+
+// Print choices to html
+for (var i = 1; i < 5; i++) {
+    var newDiv = $("<div>");
+    newDiv.text(questionArray[questionIndex][i]);
+    newDiv.attr("class", "answer");
+    newDiv.attr("value", i);
+    $(".container").append(newDiv);
+}
+
+$(document).ready(function() {
+
+    $(".answer").click(function() {
+        var val = parseInt($(this).attr("value"));
+        if (val === questionArray[questionIndex][5]) {
+            console.log("YAY");
+        }
+        })
+
+})
+
 
 // Timer Code
 var seconds = 30;
