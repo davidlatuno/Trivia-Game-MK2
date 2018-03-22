@@ -81,9 +81,13 @@ function segue() {
 }
 
 function statScreen() {
+    // Erase screen and display stats
     $(".container").empty();
     $(".container").append("<div class='stats'>Correct Answered: " + correctAnswers + "</div.");
     $(".container").append("<div class='stats'>Incorrect Answered: " + incorrectAnswers + "</div.");
+
+    // Populate button to restart quiz
+    $(".container").append("<button type='button' class='btn btn-default'>Reset</button>");
 }
 
 next();
@@ -99,6 +103,14 @@ $(document).ready(function () {
         }
         clearInterval(timer);
         segue();
+    })
+
+    $(".container").on("click", ".btn", function () {
+        correctAnswers = 0;
+        incorrectAnswers = 0;
+        questionIndex = 0;
+
+        next();
     })
 
 })
