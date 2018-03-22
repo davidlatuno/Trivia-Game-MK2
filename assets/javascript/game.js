@@ -35,7 +35,7 @@ var incorrectAnswers = 0;
 // Jquery to populate questions
 function next() {
     if (questionIndex <= questionArray.length - 1) {
-        seconds = 20;
+        seconds = 15;
         start();
 
         $(".trivia").empty();
@@ -55,7 +55,7 @@ function next() {
             $(".trivia").append(newDiv);
         }
         // Reset Timer text
-        $("#timer").text("Time Remaining: 20 Seconds");
+        $("#timer").text("Time Remaining: 15 Seconds");
         $("#timer").css("color", "forestgreen");
     }
 }
@@ -66,7 +66,7 @@ function segue() {
     var segueIndex = questionArray[questionIndex][5];
 
     $(".trivia").empty();
-    $(".trivia").text("The Correct answer was: " + questionArray[questionIndex][segueIndex]);
+    $(".trivia").html("The Correct answer was: <strong>" + questionArray[questionIndex][segueIndex] + "</strong>");
 
     questionIndex++;
 
@@ -85,7 +85,7 @@ function statScreen() {
     $(".trivia").append("<div class='stats'>Incorrect Answered: " + incorrectAnswers + "</div.");
 
     // Populate reset button
-    $(".trivia").append("<button type='button' class='btn btn-default'>Reset</button>");
+    $(".trivia").append("<button type='button' class='btn btn-danger'>Reset</button>");
 }
 
 next();
@@ -117,7 +117,7 @@ $(document).ready(function () {
 
 
 // Timer Code
-var seconds = 20;
+var seconds = 15;
 var timer;
 
 function start() {
@@ -127,7 +127,7 @@ function start() {
 function countDown() {
     seconds--;
     $("#timer").text("Time Remaining: " + seconds + " Seconds");
-    if (seconds > 10) {
+    if (seconds > 5) {
         $("#timer").css("color", "forestgreen");
     } else {
         $("#timer").css("color", "crimson");

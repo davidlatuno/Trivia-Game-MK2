@@ -6,3 +6,23 @@ body {
         -o-background-size: cover;
         background-size: cover;;
 }
+
+#timer {
+    font-size: 40px;
+}
+
+.question, .trivia {
+    font-size: 30px;
+    text-align: center;
+}
+
+.answer {
+    font-size: 20px;
+    width: 40%;
+    margin-left: 30%;
+}
+
+.answer:hover {
+    background: lightblue;
+    border:1px solid darkblue;
+}
