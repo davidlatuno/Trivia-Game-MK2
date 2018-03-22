@@ -61,12 +61,30 @@ function next() {
 }
 
 // Correct answer shown screen
-function segue() {
+function segueHappy() {
 
     var segueIndex = questionArray[questionIndex][5];
 
     $(".trivia").empty();
-    $(".trivia").html("The Correct answer was: <strong>" + questionArray[questionIndex][segueIndex] + "</strong>");
+    $(".trivia").html("Good Job! The correct answer was: <strong>" + questionArray[questionIndex][segueIndex] + "</strong>");
+
+    questionIndex++;
+
+    // Get next question or if no more questions show stats
+    if (questionIndex <= questionArray.length - 1) {
+        setTimeout(next, 3000);
+    } else {
+        setTimeout(statScreen, 3000);
+    }
+}
+
+// Correct answer shown screen
+function segueSad() {
+
+    var segueIndex = questionArray[questionIndex][5];
+
+    $(".trivia").empty();
+    $(".trivia").html("So close! The correct answer was: <strong>" + questionArray[questionIndex][segueIndex] + "</strong>");
 
     questionIndex++;
 
@@ -97,11 +115,12 @@ $(document).ready(function () {
         var val = parseInt($(this).attr("value"));
         if (val === questionArray[questionIndex][5]) {
             correctAnswers++;
+            segueHappy();
         } else {
             incorrectAnswers++;
+            segueSad();
         }
         clearInterval(timer);
-        segue();
     })
 
     // Reset quiz
@@ -135,7 +154,7 @@ function countDown() {
     if (seconds === 0) {
         incorrectAnswers++;
         stop();
-        segue();
+        segueSad();
     }
 }
 
