@@ -121,10 +121,8 @@ function statScreen() {
     $(".trivia").append("<div class='stats'>Incorrect Answers: " + incorrectAnswers + "</div.");
 
     // Populate reset button
-    $(".trivia").append("<button type='button' class='btn btn-danger'>Reset</button>");
+    $(".trivia").append("<button type='button' class='btn btn-danger reset'>Reset</button>");
 }
-
-next();
 
 $(document).ready(function () {
 
@@ -141,8 +139,13 @@ $(document).ready(function () {
         clearInterval(timer);
     })
 
+    // Start quiz
+    $(".trivia").on("click", ".start", function () {
+        next();
+    })
+
     // Reset quiz
-    $(".trivia").on("click", ".btn", function () {
+    $(".trivia").on("click", ".reset", function () {
         correctAnswers = 0;
         incorrectAnswers = 0;
         questionIndex = 0;
