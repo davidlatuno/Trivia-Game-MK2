@@ -38,13 +38,13 @@ function next() {
         seconds = 20;
         start();
 
-        $(".container").empty();
+        $(".trivia").empty();
 
         // Print Questions to html
         var newDiv = $("<div>");
         newDiv.text(questionArray[questionIndex][0]);
         newDiv.attr("class", "question");
-        $(".container").append(newDiv);
+        $(".trivia").append(newDiv);
 
         // Print choices to html
         for (var i = 1; i < 5; i++) {
@@ -52,15 +52,12 @@ function next() {
             newDiv.text(questionArray[questionIndex][i]);
             newDiv.attr("class", "answer");
             newDiv.attr("value", i);
-            $(".container").append(newDiv);
+            $(".trivia").append(newDiv);
         }
         // Reset Timer text
         $("#timer").text("Time Remaining: 20 Seconds");
         $("#timer").css("color", "forestgreen");
-        console.log(questionIndex);
-
     }
-
 }
 
 // Correct answer shown screen
@@ -68,11 +65,12 @@ function segue() {
 
     var segueIndex = questionArray[questionIndex][5];
 
-    $(".container").empty();
-    $(".container").text("The Correct answer was: " + questionArray[questionIndex][segueIndex]);
+    $(".trivia").empty();
+    $(".trivia").text("The Correct answer was: " + questionArray[questionIndex][segueIndex]);
 
     questionIndex++;
 
+    // Get next question or if no more questions show stats
     if (questionIndex <= questionArray.length - 1) {
         setTimeout(next, 3000);
     } else {
@@ -82,19 +80,20 @@ function segue() {
 
 function statScreen() {
     // Erase screen and display stats
-    $(".container").empty();
-    $(".container").append("<div class='stats'>Correct Answered: " + correctAnswers + "</div.");
-    $(".container").append("<div class='stats'>Incorrect Answered: " + incorrectAnswers + "</div.");
+    $(".trivia").empty();
+    $(".trivia").append("<div class='stats'>Correct Answered: " + correctAnswers + "</div.");
+    $(".trivia").append("<div class='stats'>Incorrect Answered: " + incorrectAnswers + "</div.");
 
-    // Populate button to restart quiz
-    $(".container").append("<button type='button' class='btn btn-default'>Reset</button>");
+    // Populate reset button
+    $(".trivia").append("<button type='button' class='btn btn-default'>Reset</button>");
 }
 
 next();
 
 $(document).ready(function () {
 
-    $(".container").on("click", ".answer", function () {
+    // Answer clicks
+    $(".trivia").on("click", ".answer", function () {
         var val = parseInt($(this).attr("value"));
         if (val === questionArray[questionIndex][5]) {
             correctAnswers++;
@@ -105,7 +104,8 @@ $(document).ready(function () {
         segue();
     })
 
-    $(".container").on("click", ".btn", function () {
+    // Reset quiz
+    $(".trivia").on("click", ".btn", function () {
         correctAnswers = 0;
         incorrectAnswers = 0;
         questionIndex = 0;
